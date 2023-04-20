@@ -1,12 +1,15 @@
 package c322.edu.iu.finalproject.memberservice.controller;
 
 import c322.edu.iu.finalproject.memberservice.model.Member;
+import c322.edu.iu.finalproject.memberservice.model.Title;
 import c322.edu.iu.finalproject.memberservice.repository.MemberRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
+import java.util.*;
 import java.util.Optional;
 
 @RestController
@@ -14,8 +17,19 @@ import java.util.Optional;
 public class MemberController {
     private MemberRepository repository;
 
-    public MemberController(MemberRepository repository) {
+
+    private final WebClient title;
+
+    public MemberController(MemberRepository repository, WebClient.Builder webClientBuilder) {
         this.repository = repository;
+        this.title = webClientBuilder.baseUrl("http://localhost:8070").build();
+    }
+
+    private List<Title> reservedTitles(Member member, Title title) {
+        List<Title> reservedTitles = new ArrayList<>();
+        reservedTitles.add(title);
+
+        return reservedTitles;
     }
 
     @GetMapping
