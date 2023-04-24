@@ -42,14 +42,24 @@ public class MemberController {
         Member newMember = repository.save(member);
         return newMember.getId();
     }
+    @GetMapping("/{id}")
+    public Member findById(@PathVariable int id) {
+        Optional<Member> member = repository.findById(id);
+        if (member.isPresent()) {
+            return member.get();
+        } else {
+            throw new NoSuchElementException("Member not found with ID " + id);
+        }
+    }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
     public void update(@Valid @RequestBody Member member, @PathVariable int id) {
         member.setId(id);
         Optional<Member> m = repository.findById(id);
-        if (m.isPresent())
+        if (m.isPresent()) {
             repository.save(member);
+        }
         else throw new IllegalStateException("Member is not in the database.");
     }
 
