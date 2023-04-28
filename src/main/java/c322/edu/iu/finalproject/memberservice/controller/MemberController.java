@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/members")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://library-frontend-alpha.vercel.app")
 public class MemberController {
     private MemberRepository repository;
 
