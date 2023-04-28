@@ -11,7 +11,8 @@ import java.util.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping
+@RequestMapping("/members")
+@CrossOrigin(origins = "http://localhost:3000")
 public class MemberController {
     private MemberRepository repository;
 
